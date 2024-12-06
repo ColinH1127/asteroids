@@ -26,11 +26,11 @@ def main():
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
     AsteroidField()
     while True:
-        screen.fill((0, 0, 0))
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
+        screen.fill((0, 0, 0))
         for item in drawable:
             item.draw(screen)
         for info in updatable:
@@ -39,6 +39,11 @@ def main():
             if player.collide(object):
                 print("Game Over!")
                 return
+            for shot in shots:
+                if shot.collide(object):
+                    shot.kill()
+                    object.kill()
+                
         pygame.display.flip()
         dt = clock.tick(60) / 1000
         
